@@ -1,54 +1,86 @@
 # 🎁 GiftGenie – Personalized Indian Gift Recommendation Web App
 
-A clean, full-stack Java web application built on **Java Module 1 Fundamentals** (Object-Oriented Programming, Interfaces, Control Flow, Collections, and Multi-User Isolation). Tailored for an Indian audience with real-time Indian Rupee (₹) pricing and culturally accurate gifting options.
+A clean, modular Java web application developed following **Java Module 1 Fundamentals** and standard **Object-Oriented Software Engineering Principles** (Model-View-Controller architecture, Encapsulation, Interfaces, Polymorphism, and Thread-Safe Data Isolation).
+
+Tailored for an Indian audience with real-time Indian Rupee (₹) pricing and culturally accurate gifting options.
 
 ---
 
-## ✨ Features
-- **Strict Demographic & Age-Appropriate Gating**: Ensures seniors and elders (e.g., 60yo uncle) receive thoughtful items (*Saregama Carvaan*, *Khadi Nehru Jacket*, *Omron BP Monitor*, *Ayurvedic Copper Dispenser*) rather than out-of-context gadgets (like gaming mice).
-- **Direct Recipient Filter Wizard**: Instant selection by **Age**, **Gender / Relation**, **Category Focus**, and **Max Budget (₹ INR)**.
-- **Multi-User Account System**: Includes dedicated **Sign In** and **Create Account (Sign Up)** tabs with user credential storage.
-- **Isolated User History**: Search queries and recommendation logs are isolated per logged-in user profile with clickable recent searches.
-- **Zero Heavy Dependencies**: Runs directly on Java's lightweight built-in HTTP server (`com.sun.net.httpserver.HttpServer`).
-- **Warm Champagne / Cream Aesthetic**: High-contrast editorial serif typography (`Playfair Display`), warm amber accents, and responsive layout.
+## 🏛️ Architecture & Project Structure
+
+The project separates presentation markup, business logic, domain models, and repositories:
+
+```text
+simple-gift-app/
+│
+├── templates/                     # Presentation Layer (HTML5 & CSS)
+│   ├── auth.html                  # Sign In & Account Creation view
+│   └── dashboard.html             # Curated recommendations & filters dashboard
+│
+├── Gift.java                      # Domain Entity: Encapsulated gift item with age/gender validation
+├── SearchRecord.java              # Domain Entity: Encapsulated search log with redirect query generator
+├── User.java                      # Domain Entity: User credentials and authentication
+│
+├── GiftRecommender.java           # Business Interface: Contract for recommendation algorithms
+├── UserAnalyticsTracker.java      # Business Interface: Contract for user metrics & data isolation
+│
+├── GiftCatalog.java               # Repository: Curated Indian product inventory
+├── UserRepository.java            # Repository: Thread-safe user storage & search vaults (ConcurrentHashMap)
+│
+├── GiftService.java               # Service Layer: Implements GiftRecommender & UserAnalyticsTracker
+├── TemplateRenderer.java          # View Renderer: Merges dynamic Java data with HTML templates
+├── SimpleGiftApp.java             # Controller & Entry Point: Configures routes & built-in HTTP server
+│
+├── ConsoleGiftApp.java            # Standalone CLI demo of recommendation algorithm
+├── run.bat                        # One-click Windows launch script
+└── README.md                      # Project documentation
+```
 
 ---
 
-## 🛠️ Java Concepts Demonstrated
-1. **Java Architecture**: JDK compilation (`javac`), bytecode execution on JVM (`java`).
-2. **Interfaces & Polymorphism**:
-   - `interface GiftRecommender`: Contract for generating filtered recommendation sets.
-   - `interface UserAnalyticsTracker`: Contract for analyzing user budgets and category trends.
-3. **Java Collections**:
-   - `ArrayList<Gift>` for catalog and recommendation ranking.
-   - `HashMap<String, ArrayList<SearchRecord>>` for user vault isolation.
-4. **Control Flow & Guardrails**:
-   - Strict bounds checking (`age >= minAge && age <= maxAge`).
-   - Categorical fallback logic preserving demographic rules.
+## 💡 Core Java Concepts Demonstrated
+
+1. **Object-Oriented Encapsulation**:
+   - All domain entities (`Gift`, `SearchRecord`, `User`) declare fields as `private final`, ensuring immutability and data integrity.
+   - Access is mediated exclusively through public getters and validation methods (`isAgeAppropriate()`, `matchesGender()`, `validatePassword()`).
+
+2. **Abstraction & Interfaces**:
+   - `GiftRecommender`: Decouples the recommendation algorithm contract from its concrete implementation.
+   - `UserAnalyticsTracker`: Enforces personal analytics tracking and isolated history retrieval contracts.
+
+3. **Separation of Concerns (MVC)**:
+   - **Model**: `Gift`, `SearchRecord`, `User`.
+   - **Repository Layer**: `GiftCatalog`, `UserRepository`.
+   - **Service Layer**: `GiftService`.
+   - **View Layer**: `templates/dashboard.html`, `templates/auth.html`, `TemplateRenderer`.
+   - **Controller Layer**: `SimpleGiftApp` with dedicated route handlers.
+
+4. **Thread Safety & Multi-Threading**:
+   - Employs `ConcurrentHashMap` and `CopyOnWriteArrayList` in `UserRepository` to guarantee safety across concurrent HTTP requests.
+
+5. **Guardrails & Control Flow**:
+   - Strict demographic bounds checking ensures senior recipients (e.g. 60yo uncle) never receive gaming controllers or youth gadgets.
 
 ---
 
 ## 🚀 How to Run Locally
 
 ### Prerequisites
-- Java Development Kit (JDK 17 or higher recommended). Verify using:
+- JDK 17 or higher. Verify installation:
   ```bash
   javac -version
   java -version
   ```
 
-### Steps to Run
+### Quick Start
 1. Open PowerShell or Command Prompt in the project folder:
    ```bash
-   cd simple-gift-app
+   cd c:\Users\riyad\OneDrive\Documents\riya\simple-gift-app
    ```
-2. Compile the Java source file:
+2. Double-click `run.bat` **or** run manually:
    ```bash
    javac -encoding UTF-8 SimpleGiftApp.java
-   ```
-3. Start the web server:
-   ```bash
    java SimpleGiftApp
    ```
-4. Open your web browser and navigate to:
+3. Open your browser and visit:
    - **http://localhost:8080**

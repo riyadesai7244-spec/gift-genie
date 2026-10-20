@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Access – GiftGenie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at 50% 15%, #fbf5ea 0%, #fcf9f2 60%, #faf6ee 100%);
+      --card: #ffffff;
+      --border: #fae8cc;
+      --text-dark: #221711;
+      --text-muted: #786d63;
+      --accent-amber: #c2781d;
+      --accent-hover: #a86214;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0;
+      padding: 40px 15px;
+      background: var(--bg-gradient);
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 85vh;
+    }
+    .auth-card {
+      max-width: 440px;
+      width: 100%;
+      background: var(--card);
+      padding: 36px 32px;
+      border-radius: 28px;
+      box-shadow: 0 10px 35px -5px rgba(184, 106, 26, 0.08);
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+    .brand-icon {
+      width: 50px;
+      height: 50px;
+      background: #c2781d;
+      color: white;
+      font-size: 24px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 12px rgba(194, 120, 29, 0.22);
+    }
+    .brand-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 0;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    .tab-bar {
+      display: flex;
+      background: #fdf6ec;
+      border-radius: 999px;
+      padding: 4px;
+      border: 1px solid #f4dfbe;
+      margin-bottom: 22px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 9px 12px;
+      border: none;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .tab-active {
+      background: #c2781d;
+      color: white;
+      box-shadow: 0 2px 6px rgba(194, 120, 29, 0.25);
+    }
+    .tab-inactive {
+      background: transparent;
+      color: #8e5414;
+    }
+    .tab-inactive:hover {
+      color: #5a3205;
+    }
+    .error-box {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+    .form-group {
+      text-align: left;
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    input {
+      width: 100%;
+      padding: 11.5px 14px;
+      border: 1.5px solid #f0e2d0;
+      border-radius: 12px;
+      font-size: 13.5px;
+      box-sizing: border-box;
+      background: #fffcf9;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    input:focus {
+      border-color: var(--accent-amber);
+      box-shadow: 0 0 0 3px rgba(194, 120, 29, 0.12);
+    }
+    .btn-submit {
+      width: 100%;
+      background: var(--accent-amber);
+      color: white;
+      border: none;
+      padding: 13px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-top: 6px;
+      box-shadow: 0 3px 10px rgba(194, 120, 29, 0.2);
+    }
+    .btn-submit:hover {
+      background: var(--accent-hover);
+    }
+    .quick-login {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid #f6ecdc;
+    }
+    .btn-quick {
+      background: #fdf6ec;
+      color: var(--accent-amber);
+      border: 1.5px solid #f5dfbe;
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      width: 100%;
+    }
+    .btn-quick:hover {
+      background: #fbebd4;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="brand-icon">🎁</div>
+    <h1 class="brand-title">GiftGenie</h1>
+    <div class="subtitle">Curated Indian gift ideas tailored to your loved ones.</div>
+
+    <!-- Dual Tab Bar -->
+    <div class="tab-bar">
+      <a href="/login?tab=login" class="tab-btn {{TAB_LOGIN_CLASS}}">🔑 Sign In</a>
+      <a href="/login?tab=signup" class="tab-btn {{TAB_SIGNUP_CLASS}}">✨ Create Account</a>
+    </div>
+
+    {{ERROR_MESSAGE_BLOCK}}
+
+    <!-- SIGN IN FORM -->
+    <div id="signin-section" style="display: {{FORM_LOGIN_DISPLAY}};">
+      <form method="POST" action="/login">
+        <input type="hidden" name="action" value="login">
+        <div class="form-group">
+          <label>Your Username</label>
+          <input type="text" name="username" value="{{PREFILLED_USERNAME}}" required placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" value="123456" required placeholder="••••••">
+        </div>
+        <button type="submit" class="btn-submit">Sign In to Your Account →</button>
+      </form>
+
+      <div class="quick-login">
+        <form method="POST" action="/login">
+          <input type="hidden" name="action" value="login">
+          <input type="hidden" name="username" value="Riya">
+          <input type="hidden" name="password" value="123456">
+          <button type="submit" class="btn-quick">⚡ One-Click Login as <b>Riya</b></button>
+        </form>
+        <div style="margin-top:12px; font-size:12px; color:var(--text-muted);">
+          New here? <a href="/login?tab=signup" style="color:var(--accent-amber); font-weight:700;">Create an account</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIGN UP FORM -->
+    <div id="signup-section" style="display: {{FORM_SIGNUP_DISPLAY}};">
+      <form method="POST" action="/login">
+        <input type="hidden" name="action" value="signup">
+        <div class="form-group">
+          <label>Create New Username</label>
+          <input type="text" name="username" value="{{PREFILLED_USERNAME}}" required placeholder="e.g. Aarav, Priya, Kabir">
+        </div>
+        <div class="form-group">
+          <label>Create Password</label>
+          <input type="password" name="password" required placeholder="Create a password">
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" name="confirm_password" required placeholder="Confirm password">
+        </div>
+        <button type="submit" class="btn-submit">✨ Create Account &amp; Start Gifting</button>
+      </form>
+
+      <div class="quick-login">
+        <div style="font-size:12px; color:var(--text-muted);">
+          Already have an account? <a href="/login?tab=login" style="color:var(--accent-amber); font-weight:700;">Sign In here</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
