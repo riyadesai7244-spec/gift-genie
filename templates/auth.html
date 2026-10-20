@@ -3,248 +3,228 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Account Access – GiftGenie</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>GiftGenie – Sign In</title>
   <style>
-    :root {
-      --bg-gradient: radial-gradient(circle at 50% 15%, #fbf5ea 0%, #fcf9f2 60%, #faf6ee 100%);
-      --card: #ffffff;
-      --border: #fae8cc;
-      --text-dark: #221711;
-      --text-muted: #786d63;
-      --accent-amber: #c2781d;
-      --accent-hover: #a86214;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      margin: 0;
-      padding: 40px 15px;
-      background: var(--bg-gradient);
-      color: var(--text-dark);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 85vh;
+      min-height: 100vh;
+      padding: 20px;
     }
-    .auth-card {
-      max-width: 440px;
+    .auth-container {
       width: 100%;
-      background: var(--card);
-      padding: 36px 32px;
-      border-radius: 28px;
-      box-shadow: 0 10px 35px -5px rgba(184, 106, 26, 0.08);
-      border: 1px solid var(--border);
-      text-align: center;
+      max-width: 400px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
-    .brand-icon {
-      width: 50px;
-      height: 50px;
-      background: #c2781d;
-      color: white;
-      font-size: 24px;
-      border-radius: 14px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-      box-shadow: 0 4px 12px rgba(194, 120, 29, 0.22);
+    .brand-header {
+      text-align: center;
+      margin-bottom: 24px;
     }
     .brand-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 700;
-      color: var(--text-dark);
-      margin: 0;
+      color: #0f172a;
+      letter-spacing: -0.5px;
     }
-    .subtitle {
+    .brand-subtitle {
       font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 6px;
-      margin-bottom: 20px;
-      line-height: 1.4;
+      color: #64748b;
+      margin-top: 4px;
     }
-    .tab-bar {
+    .tab-nav {
       display: flex;
-      background: #fdf6ec;
-      border-radius: 999px;
-      padding: 4px;
-      border: 1px solid #f4dfbe;
-      margin-bottom: 22px;
+      border-bottom: 1px solid #e2e8f0;
+      margin-bottom: 20px;
     }
-    .tab-btn {
+    .tab-nav a {
       flex: 1;
-      padding: 9px 12px;
-      border: none;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .tab-active {
-      background: #c2781d;
-      color: white;
-      box-shadow: 0 2px 6px rgba(194, 120, 29, 0.25);
-    }
-    .tab-inactive {
-      background: transparent;
-      color: #8e5414;
-    }
-    .tab-inactive:hover {
-      color: #5a3205;
-    }
-    .error-box {
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      color: #b91c1c;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 12.5px;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 14px;
       font-weight: 600;
-      margin-bottom: 18px;
-      text-align: left;
+      text-decoration: none;
+      color: #64748b;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .tab-nav a.tab-active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+    }
+    .tab-nav a.tab-inactive:hover {
+      color: #334155;
     }
     .form-group {
-      text-align: left;
       margin-bottom: 16px;
     }
     label {
       display: block;
-      font-size: 11.5px;
-      font-weight: 700;
-      color: var(--text-dark);
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
       margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
-    input {
+    input[type="text"],
+    input[type="password"] {
       width: 100%;
-      padding: 11.5px 14px;
-      border: 1.5px solid #f0e2d0;
-      border-radius: 12px;
-      font-size: 13.5px;
-      box-sizing: border-box;
-      background: #fffcf9;
-      color: var(--text-dark);
-      outline: none;
-      transition: border-color 0.15s;
-    }
-    input:focus {
-      border-color: var(--accent-amber);
-      box-shadow: 0 0 0 3px rgba(194, 120, 29, 0.12);
-    }
-    .btn-submit {
-      width: 100%;
-      background: var(--accent-amber);
-      color: white;
-      border: none;
-      padding: 13px;
+      padding: 10px 12px;
       font-size: 14px;
-      font-weight: 700;
-      border-radius: 999px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      background-color: #ffffff;
+      color: #0f172a;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    .btn-primary {
+      width: 100%;
+      padding: 11px;
+      background-color: #2563eb;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
       cursor: pointer;
-      transition: background 0.15s;
+      transition: background-color 0.15s;
       margin-top: 6px;
-      box-shadow: 0 3px 10px rgba(194, 120, 29, 0.2);
     }
-    .btn-submit:hover {
-      background: var(--accent-hover);
+    .btn-primary:hover {
+      background-color: #1d4ed8;
     }
-    .quick-login {
+    .btn-secondary {
+      width: 100%;
+      padding: 9px;
+      background-color: #f1f5f9;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.15s;
+    }
+    .btn-secondary:hover {
+      background-color: #e2e8f0;
+    }
+    .quick-login-divider {
       margin-top: 20px;
       padding-top: 18px;
-      border-top: 1px solid #f6ecdc;
+      border-top: 1px solid #f1f5f9;
+      text-align: center;
     }
-    .btn-quick {
-      background: #fdf6ec;
-      color: var(--accent-amber);
-      border: 1.5px solid #f5dfbe;
-      padding: 9px 16px;
-      border-radius: 999px;
-      font-size: 12.5px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.15s;
-      width: 100%;
+    .error-box {
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
     }
-    .btn-quick:hover {
-      background: #fbebd4;
+    .switch-link {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 12px;
+      text-align: center;
+    }
+    .switch-link a {
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .switch-link a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <div class="auth-card">
-    <div class="brand-icon">🎁</div>
-    <h1 class="brand-title">GiftGenie</h1>
-    <div class="subtitle">Curated Indian gift ideas tailored to your loved ones.</div>
+  <div class="auth-container">
+    <div class="brand-header">
+      <h1 class="brand-title">GiftGenie</h1>
+      <p class="brand-subtitle">Gift Recommendation &amp; Search System</p>
+    </div>
 
-    <!-- Dual Tab Bar -->
-    <div class="tab-bar">
-      <a href="/login?tab=login" class="tab-btn {{TAB_LOGIN_CLASS}}">🔑 Sign In</a>
-      <a href="/login?tab=signup" class="tab-btn {{TAB_SIGNUP_CLASS}}">✨ Create Account</a>
+    <!-- Navigation Tabs -->
+    <div class="tab-nav">
+      <a href="/login?tab=login" class="{{TAB_LOGIN_CLASS}}">Sign In</a>
+      <a href="/login?tab=signup" class="{{TAB_SIGNUP_CLASS}}">Create Account</a>
     </div>
 
     {{ERROR_MESSAGE_BLOCK}}
 
     <!-- SIGN IN FORM -->
-    <div id="signin-section" style="display: {{FORM_LOGIN_DISPLAY}};">
+    <div style="display: {{FORM_LOGIN_DISPLAY}};">
       <form method="POST" action="/login">
         <input type="hidden" name="action" value="login">
         <div class="form-group">
-          <label>Your Username</label>
-          <input type="text" name="username" value="{{PREFILLED_USERNAME}}" required placeholder="Enter your username">
+          <label for="login-username">Username</label>
+          <input type="text" id="login-username" name="username" value="{{PREFILLED_USERNAME}}" required placeholder="Enter username">
         </div>
         <div class="form-group">
-          <label>Password</label>
-          <input type="password" name="password" value="123456" required placeholder="••••••">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" name="password" value="123456" required placeholder="Enter password">
         </div>
-        <button type="submit" class="btn-submit">Sign In to Your Account →</button>
+        <button type="submit" class="btn-primary">Sign In</button>
       </form>
 
-      <div class="quick-login">
+      <div class="quick-login-divider">
         <form method="POST" action="/login">
           <input type="hidden" name="action" value="login">
           <input type="hidden" name="username" value="Riya">
           <input type="hidden" name="password" value="123456">
-          <button type="submit" class="btn-quick">⚡ One-Click Login as <b>Riya</b></button>
+          <button type="submit" class="btn-secondary">One-Click Demo Login as <b>Riya</b></button>
         </form>
-        <div style="margin-top:12px; font-size:12px; color:var(--text-muted);">
-          New here? <a href="/login?tab=signup" style="color:var(--accent-amber); font-weight:700;">Create an account</a>
-        </div>
+        <p class="switch-link">
+          Don't have an account? <a href="/login?tab=signup">Register here</a>
+        </p>
       </div>
     </div>
 
-    <!-- SIGN UP FORM -->
-    <div id="signup-section" style="display: {{FORM_SIGNUP_DISPLAY}};">
+    <!-- CREATE ACCOUNT FORM -->
+    <div style="display: {{FORM_SIGNUP_DISPLAY}};">
       <form method="POST" action="/login">
         <input type="hidden" name="action" value="signup">
         <div class="form-group">
-          <label>Create New Username</label>
-          <input type="text" name="username" value="{{PREFILLED_USERNAME}}" required placeholder="e.g. Aarav, Priya, Kabir">
+          <label for="signup-username">Username</label>
+          <input type="text" id="signup-username" name="username" value="{{PREFILLED_USERNAME}}" required placeholder="Choose a username">
         </div>
         <div class="form-group">
-          <label>Create Password</label>
-          <input type="password" name="password" required placeholder="Create a password">
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" name="password" required placeholder="Create password">
         </div>
         <div class="form-group">
-          <label>Confirm Password</label>
-          <input type="password" name="confirm_password" required placeholder="Confirm password">
+          <label for="signup-confirm">Confirm Password</label>
+          <input type="password" id="signup-confirm" name="confirm_password" required placeholder="Confirm password">
         </div>
-        <button type="submit" class="btn-submit">✨ Create Account &amp; Start Gifting</button>
+        <button type="submit" class="btn-primary">Create Account</button>
       </form>
 
-      <div class="quick-login">
-        <div style="font-size:12px; color:var(--text-muted);">
-          Already have an account? <a href="/login?tab=login" style="color:var(--accent-amber); font-weight:700;">Sign In here</a>
-        </div>
+      <div class="quick-login-divider">
+        <p class="switch-link">
+          Already registered? <a href="/login?tab=login">Sign In here</a>
+        </p>
       </div>
     </div>
-
   </div>
 
 </body>

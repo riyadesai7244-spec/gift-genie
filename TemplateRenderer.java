@@ -44,7 +44,7 @@ public class TemplateRenderer {
 
         String errorHtml = "";
         if (errorMessage != null && !errorMessage.trim().isEmpty()) {
-            errorHtml = "<div class='error-box'>⚠️ " + escapeHtml(errorMessage) + "</div>";
+            errorHtml = "<div class='error-box'>" + escapeHtml(errorMessage) + "</div>";
         }
 
         String usernameVal = (prefilledUsername != null && !prefilledUsername.trim().isEmpty())
@@ -82,30 +82,27 @@ public class TemplateRenderer {
         // Recommendations HTML
         StringBuilder resultsBuilder = new StringBuilder();
         if (hasSearched && results != null && !results.isEmpty()) {
-            resultsBuilder.append("<div class='results-header'>");
-            resultsBuilder.append("<div class='results-title'>Handpicked Recommendations for ")
-                    .append(age).append(" yr old (").append(escapeHtml(gender)).append(")</div>");
-            resultsBuilder.append("<div class='results-count'>").append(results.size()).append(" Curated Ideas</div>");
+            resultsBuilder.append("<div class='results-summary'>");
+            resultsBuilder.append("<div>Matching items for <b>")
+                    .append(age).append(" yr old (").append(escapeHtml(gender)).append(")</b></div>");
+            resultsBuilder.append("<span class='results-count'>").append(results.size()).append(" Items Found</span>");
             resultsBuilder.append("</div>");
 
-            resultsBuilder.append("<div class='recommendation-stack'>");
+            resultsBuilder.append("<div class='recommendations-list'>");
             for (Gift gift : results) {
                 resultsBuilder.append(buildGiftCard(gift));
             }
             resultsBuilder.append("</div>");
         } else if (hasSearched) {
-            resultsBuilder.append("<div class='results-header'>");
-            resultsBuilder.append("<div class='results-title'>No Exact Matches</div>");
-            resultsBuilder.append("</div>");
-            resultsBuilder.append("<div style='background:white; border:1px solid #fae8cc; border-radius:18px; padding:24px; text-align:center; color:#6b6158; margin-bottom:30px;'>")
-                    .append("No gifts matched this specific combination. Try selecting a broader category or increasing the budget.")
+            resultsBuilder.append("<div style='padding:20px; text-align:center; color:#64748b; font-size:13px;'>")
+                    .append("No items matched this exact search. Try adjusting the category or budget.")
                     .append("</div>");
         }
 
         // History rows HTML
         StringBuilder historyBuilder = new StringBuilder();
         if (history == null || history.isEmpty()) {
-            historyBuilder.append("<tr><td colspan='6' style='text-align:center; color:#786d63; padding:16px;'>No searches logged yet. Try your first search above!</td></tr>");
+            historyBuilder.append("<tr><td colspan='6' style='text-align:center; color:#64748b; padding:16px;'>No searches logged yet. Submit a search above to see history.</td></tr>");
         } else {
             int limit = Math.min(6, history.size());
             for (int i = 0; i < limit; i++) {
@@ -131,18 +128,18 @@ public class TemplateRenderer {
     }
 
     private static String buildGiftCard(Gift gift) {
-        return "<div class='gift-row-card'>" +
-                "<div class='gift-left'>" +
-                "<div class='gift-icon'>" + gift.getIcon() + "</div>" +
-                "<div class='gift-info'>" +
-                "<div class='gift-name'>" + escapeHtml(gift.getName()) + "</div>" +
-                "<div class='gift-desc'>" + escapeHtml(gift.getDescription()) + "</div>" +
-                "<div class='gift-meta'>Suitable Ages: <b>" + gift.getMinAge() + "-" + gift.getMaxAge() + " yrs</b> • Category: " + escapeHtml(gift.getCategory()) + "</div>" +
+        return "<div class='item-card'>" +
+                "<div class='item-details'>" +
+                "<div class='item-name'>" + escapeHtml(gift.getName()) + "</div>" +
+                "<div class='item-desc'>" + escapeHtml(gift.getDescription()) + "</div>" +
+                "<div class='item-tags'>" +
+                "<span class='tag'>Ages: " + gift.getMinAge() + "-" + gift.getMaxAge() + " yrs</span>" +
+                "<span class='tag'>Category: " + escapeHtml(gift.getCategory()) + "</span>" +
                 "</div>" +
                 "</div>" +
-                "<div class='gift-right'>" +
-                "<div class='gift-price'>" + gift.getFormattedPrice() + "</div>" +
-                "<div class='gift-occasion-badge'>" + escapeHtml(gift.getOccasion()) + "</div>" +
+                "<div class='item-pricing'>" +
+                "<div class='item-price'>" + gift.getFormattedPrice() + "</div>" +
+                "<div class='item-occasion'>" + escapeHtml(gift.getOccasion()) + "</div>" +
                 "</div>" +
                 "</div>";
     }
@@ -150,12 +147,12 @@ public class TemplateRenderer {
     private static String buildHistoryRow(SearchRecord record) {
         String url = record.getRedirectQuery();
         return "<tr class='clickable-row' onclick=\"window.location.href='" + url + "'\">" +
-                "<td style='color:#786d63; font-size:12px;'>" + record.getTimestamp() + "</td>" +
+                "<td style='color:#64748b; font-size:12px;'>" + record.getTimestamp() + "</td>" +
                 "<td><b>" + record.getAge() + " yrs</b></td>" +
                 "<td>" + escapeHtml(record.getGender()) + "</td>" +
                 "<td>" + escapeHtml(record.getInterest()) + "</td>" +
-                "<td style='font-weight:700; color:#c2781d;'>₹" + String.format("%,.0f", record.getBudget()) + "</td>" +
-                "<td><a href='" + url + "' class='reload-link'>View Results →</a></td>" +
+                "<td style='font-weight:600;'>₹" + String.format("%,.0f", record.getBudget()) + "</td>" +
+                "<td><a href='" + url + "' class='action-link'>View Results →</a></td>" +
                 "</tr>";
     }
 
