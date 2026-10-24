@@ -1,17 +1,18 @@
 @echo off
 echo ========================================================
-echo   Simple Gift Recommendation & Database Analytics App
+echo   GiftGenie - Database Connected Java Web App
 echo ========================================================
 echo.
-echo Compiling SimpleGiftApp.java...
-javac -encoding UTF-8 SimpleGiftApp.java
+echo Compiling SimpleGiftApp.java with JDBC Driver...
+javac -encoding UTF-8 -cp ".;lib/*" SimpleGiftApp.java
 if %errorlevel% neq 0 (
     echo [ERROR] Compilation failed.
     pause
     exit /b %errorlevel%
 )
 echo.
-echo Starting Java App on http://localhost:8080 ...
+echo Starting GiftGenie on http://localhost:8080 ...
+echo Database: SQLite (giftgenie.db)
 echo.
-java SimpleGiftApp
+java -cp ".;lib/*" SimpleGiftApp
 pause
